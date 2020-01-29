@@ -1,5 +1,8 @@
 spring:
   profiles: integrationtest
 
-api.client.secret.salt: secret
+
+api:
+  jwt:
+    secret: verysecret
 

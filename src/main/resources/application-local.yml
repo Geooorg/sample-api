@@ -1,4 +1,6 @@
 spring:
   profiles: local
 
-api.client.secret.salt: GrundgenuG
+api:
+  jwt:
+    secret: GrundgenuG

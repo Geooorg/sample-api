@@ -23,11 +23,15 @@ public class InitialDataProvider {
 
         apiUserRepository.save(
                 apiUserRepository.findByUsername("admin").orElse(
-                        ApiUser.builder()
-                                .username("admin")
-                                .password("admin")
-                                .roles(Set.of(ApiUserRole.CLIENT_MANAGER))
-                                .build()
+                        initialAdminUser()
                 ));
+    }
+
+    public ApiUser initialAdminUser() {
+        return ApiUser.builder()
+                .username("admin")
+                .password("admin")
+                .roles(Set.of(ApiUserRole.CLIENT_MANAGER))
+                .build();
     }
 }
