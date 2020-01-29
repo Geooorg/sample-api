@@ -1,5 +1,6 @@
 package de.gs;
 
+import de.gs.persistence.ApiUserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ public class ApplicationStartupIntegrationTest {
 
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private ApiUserRepository userRepository;
 
     @Test
     public void applicationCanStart() {
         assertNotNull(applicationContext);
+        assertNotNull(userRepository.findByUsername("admin"));
     }
 
 

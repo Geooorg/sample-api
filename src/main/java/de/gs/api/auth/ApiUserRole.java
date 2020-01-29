@@ -1,9 +1,6 @@
 package de.gs.api.auth;
 
-import lombok.Data;
+public enum ApiUserRole {
 
-@Data
-public class ApiUserRole {
-
-    private String name;
+    GUEST, CLIENT_MANAGER
 }
