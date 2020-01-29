@@ -1,0 +1,5 @@
+spring:
+  profiles: integrationtest
+
+api.client.secret.salt: secret
+
