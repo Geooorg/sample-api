@@ -1,27 +1,25 @@
-package de.gs.api.exposed;
+package de.gs.persistence;
 
 import de.gs.domain.Client;
-import de.gs.persistence.ClientRepository;
 import de.gs.testdata.ClientDataFactory;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.TransactionSystemException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles({"integrationtest"})
-public class ClientRepositoryIntegrationTest {
+class ClientRepositoryIntegrationTest {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -33,23 +31,27 @@ public class ClientRepositoryIntegrationTest {
 
 
     @DisplayName("Basic bean validation test regarding the properties of the Client entity")
-    @Test(expected = TransactionSystemException.class)
-    public void incompleteClientFieldsYieldsValidationError() {
+    @Test
+    void incompleteClientFieldsYieldsValidationError() {
+
         var client = ClientDataFactory.createClient("invalidMail");
         client.setFirstName("");
         client.setEmail(null);
-        clientRepository.save(client);
+        assertThrows(TransactionSystemException.class,
+                () -> clientRepository.save(client));
     }
 
     @DisplayName("Tests for an invalid email address and makes sure the validation fails")
-    @Test(expected = TransactionSystemException.class)
-    public void invalidEmailYieldsValidationError() {
+    @Test
+    void invalidEmailYieldsValidationError() {
         var client = ClientDataFactory.createClient("invalidMail");
-        client.setEmail("invalid email address.");
-        clientRepository.save(client);
+        client.setEmail("invalid_email_address");
+        assertThrows(TransactionSystemException.class,
+                () -> clientRepository.save(client));
     }
 
-    public void canSaveValidClient() {
+    @Test
+    void canSaveValidClient() {
         var client = ClientDataFactory.createClient("valid");
         var savedClient = clientRepository.save(client);
         assertNotNull(savedClient.getId());
@@ -57,7 +59,7 @@ public class ClientRepositoryIntegrationTest {
 
     @DisplayName("Tests retrieving all clients with parameterized enabled/disabled property. Tests also paging capability")
     @Test
-    public void canFindClientsByEnabledParamWithPaging() {
+    void canFindClientsByEnabledParamWithPaging() {
         // given .. one enabled client and 20 disabled ones
         var clientEnabled = ClientDataFactory.createClient("enabled");
         clientEnabled.setEnabled(true);
