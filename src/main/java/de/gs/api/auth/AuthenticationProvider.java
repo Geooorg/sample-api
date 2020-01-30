@@ -56,6 +56,7 @@ public class AuthenticationProvider {
         }
 
         // TODO userId should be re-validated against the repository
+        // TODO return object containing userId and role(s)
         return true;
     }
 }

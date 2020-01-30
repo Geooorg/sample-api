@@ -1,2 +1,2 @@
 # sample-api
-Sample REST API for client management
+Sample REST API for client management.

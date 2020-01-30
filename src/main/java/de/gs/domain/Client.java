@@ -2,6 +2,7 @@ package de.gs.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Client {
@@ -23,13 +25,14 @@ public class Client {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "id",length = 32)
+    private String id;
 
     @NotNull
-    @Size(max = 30)
+    @Size(min = 2, max = 60)
     private String firstName;
 
     @NotNull
-    @Size(max = 60)
+    @Size(min = 2, max = 60)
     private String lastName;
 
     @NotNull
@@ -46,7 +49,7 @@ public class Client {
     private String address;
 
     @NotNull
-    @Size(max = 10)
+    @Size(max = 20)
     private String zipCode;
 
     @NotNull
