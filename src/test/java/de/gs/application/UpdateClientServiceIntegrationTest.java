@@ -14,7 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -23,6 +26,8 @@ class UpdateClientServiceIntegrationTest {
 
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private FindClientService findClientService;
 
     private UpdateClientService subject;
 
@@ -30,6 +35,27 @@ class UpdateClientServiceIntegrationTest {
     void cleanUp() {
         clientRepository.deleteAll();
         subject = new UpdateClientService(clientRepository);
+    }
+
+    @DisplayName("Client can be added")
+    @Test
+    void canBeAdded() {
+        // given
+        Client clientTemplate = ClientDataFactory.createClient("newClient");
+        UpdateClientDto updateDto = new UpdateClientDto();
+        BeanUtils.copyProperties(clientTemplate, updateDto);
+
+        // when
+        String clientId = subject.createClient(updateDto);
+        final Optional<Client> foundClient = findClientService.findById(clientId);
+
+        // then
+        assertTrue(foundClient.isPresent());
+        assertEquals(foundClient.get().getFirstName(), updateDto.getFirstName());
+        assertEquals(foundClient.get().getLastName(), updateDto.getLastName());
+        // ...
+        assertEquals(foundClient.get().getEmail(), updateDto.getEmail());
+        // ...
     }
 
     @DisplayName("Client can be updated")
@@ -48,5 +74,19 @@ class UpdateClientServiceIntegrationTest {
         assertEquals(clientAfter.getId(), clientBefore.getId()); // id must not change
         assertEquals(clientAfter.getAddress(), clientBefore.getAddress()); // address must not change
         assertEquals("newEmail@sample.com", clientAfter.getEmail()); // email needs to be updated
+    }
+
+    @DisplayName("Client can be deleted")
+    @Test
+    void canBeDeleted() {
+        // given
+        Client client = clientRepository.save(ClientDataFactory.createClient("sampleUser"));
+
+        // when
+        subject.deleteClient(client.getId());
+        final Optional<Client> foundClient = findClientService.findById(client.getId());
+
+        // then
+       assertTrue(foundClient.isEmpty());
     }
 }
