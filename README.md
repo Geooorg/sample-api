@@ -98,4 +98,22 @@ The JWT needs to be transported in the *Authorization* header
  
 When authentication is enabled, all requests on the client API (/v1/client) will be intercepted for a valid JWT.
 If the JWT is not valid, the request will not be allowed.
-Note: Currently the user's roles are not checked.             
+Note: Currently the user's roles are not checked.        
+
+# Open TODOs
+
+Providing a working, high quality software with a mostly tested API was important than providing lots of features that were not tested enough.
+From this perspective, the following TODOs (in this order) could be done next:
+
+* Authentication / Access control:
+    * Provide API to edit API users (setting permissions etc)
+    * Discuss which roles should exist and which role should be bound to what permissions and allowed/denied actions
+    
+* Client API
+    * Extend the search specification so all properties are supported
+          
+* History feature
+    * Discuss the details of changes and the true business value of this feature before estimating the actual technical effort
+     
+* Miscellaneous
+    * Extend unit tests (e.g. add unit test for searchClientsGeneric)
