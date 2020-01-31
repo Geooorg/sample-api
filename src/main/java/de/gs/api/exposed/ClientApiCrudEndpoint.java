@@ -1,5 +1,6 @@
 package de.gs.api.exposed;
 
+import de.gs.api.exposed.dto.FindClientDto;
 import de.gs.api.exposed.dto.UpdateClientDto;
 import de.gs.application.FindClientService;
 import de.gs.application.UpdateClientService;
@@ -32,7 +33,7 @@ public class ClientApiCrudEndpoint {
     final static String CLIENT_API_PATH_DELETE_RESOURCE = CLIENT_API_PATH + "/{id}";
 
 
-    //final static String CLIENT_API_PATH_SEARCH_GENERIC = CLIENT_API_PATH + "/search/generic";
+    final static String CLIENT_API_PATH_SEARCH_GENERIC = CLIENT_API_PATH + "/search/generic";
     final static String CLIENT_API_PATH_SEARCH_BY_ID = CLIENT_API_PATH + "/search/id/{id}";
 
     @GetMapping(value = CLIENT_API_PATH_LIST, produces = APPLICATION_JSON_VALUE)
@@ -54,6 +55,15 @@ public class ClientApiCrudEndpoint {
             log.debug("No client found with ID {}", id);
         }
         return new ResponseEntity<>(optClient.get(), OK);
+
+    }
+
+    @GetMapping(value = CLIENT_API_PATH_SEARCH_GENERIC, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<Client>> searchClientsGeneric(@RequestBody FindClientDto findClientDto,
+                                                             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
+
+        return new ResponseEntity<>(findClientService.findClientsBySpecification(findClientDto, page, pageSize), OK);
 
     }
 
