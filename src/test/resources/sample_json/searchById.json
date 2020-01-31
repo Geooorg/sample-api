@@ -1,0 +1,12 @@
+{
+  "id": "7280",
+  "firstName": "firstName_7280",
+  "lastName": "lastName_7280",
+  "phoneNumber": "0049",
+  "email": "7280@sample.com",
+  "address": "Nice street 7280",
+  "zipCode": "123457280",
+  "city": "Citizen city 7280",
+  "country": "Space 7280",
+  "enabled": true
+}

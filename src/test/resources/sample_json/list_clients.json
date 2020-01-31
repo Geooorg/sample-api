@@ -1,0 +1,42 @@
+{
+  "content": [
+    {
+      "id": null,
+      "firstName": "firstName_5251",
+      "lastName": "lastName_5251",
+      "phoneNumber": "0049",
+      "email": "5251@sample.com",
+      "address": "Nice street 5251",
+      "zipCode": "123455251",
+      "city": "Citizen city 5251",
+      "country": "Space 5251",
+      "enabled": true
+    },
+    {
+      "id": null,
+      "firstName": "firstName_1122",
+      "lastName": "lastName_1122",
+      "phoneNumber": "0049",
+      "email": "1122@sample.com",
+      "address": "Nice street 1122",
+      "zipCode": "123451122",
+      "city": "Citizen city 1122",
+      "country": "Space 1122",
+      "enabled": true
+    }
+  ],
+  "pageable": "INSTANCE",
+  "totalPages": 1,
+  "totalElements": 2,
+  "last": true,
+  "size": 2,
+  "number": 0,
+  "numberOfElements": 2,
+  "first": true,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "empty": false
+}

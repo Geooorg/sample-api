@@ -23,14 +23,17 @@ public class ClientApiCrudEndpoint {
     private final FindClientService findClientService;
     private final UpdateClientService updateClientService;
 
-    public final static String CLIENT_API_PATH = "/v1/client";
-    public final static String CLIENT_API_PATH_ADD_RESOURCE = CLIENT_API_PATH;
-    public final static String CLIENT_API_PATH_UPDATE_RESOURCE = CLIENT_API_PATH + "/{id:\\s+}";
-    public final static String CLIENT_API_PATH_DELETE_RESOURCE = CLIENT_API_PATH + "/{id:\\s+}";
+    private final static String CLIENT_API_PATH = "/v1/client";
 
-    public final static String CLIENT_API_PATH_LIST = CLIENT_API_PATH + "/list";
-    //public final static String CLIENT_API_PATH_SEARCH_GENERIC = CLIENT_API_PATH + "/search/generic";
-    public final static String CLIENT_API_PATH_SEARCH_BY_ID = CLIENT_API_PATH + "/search/id/{id:\\s+}";
+    final static String CLIENT_API_PATH_LIST = CLIENT_API_PATH + "/list";
+
+    final static String CLIENT_API_PATH_ADD_RESOURCE = CLIENT_API_PATH;
+    final static String CLIENT_API_PATH_UPDATE_RESOURCE = CLIENT_API_PATH + "/{id}";
+    final static String CLIENT_API_PATH_DELETE_RESOURCE = CLIENT_API_PATH + "/{id}";
+
+
+    //final static String CLIENT_API_PATH_SEARCH_GENERIC = CLIENT_API_PATH + "/search/generic";
+    final static String CLIENT_API_PATH_SEARCH_BY_ID = CLIENT_API_PATH + "/search/id/{id}";
 
     @GetMapping(value = CLIENT_API_PATH_LIST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<Client>> listClients(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
@@ -54,7 +57,7 @@ public class ClientApiCrudEndpoint {
 
     }
 
-    @PostMapping(value = CLIENT_API_PATH_ADD_RESOURCE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = CLIENT_API_PATH_ADD_RESOURCE, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Client> createClient(@RequestBody UpdateClientDto dto) {
         log.debug("Creating new client {}", dto);
 
@@ -64,7 +67,7 @@ public class ClientApiCrudEndpoint {
         return new ResponseEntity<>(createdClient, OK);
     }
 
-    @PutMapping(value = CLIENT_API_PATH_UPDATE_RESOURCE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = CLIENT_API_PATH_UPDATE_RESOURCE, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Client> updateClient(@RequestBody UpdateClientDto dto, @PathVariable("id") String id) {
         log.debug("Updating client with id {}: {}", id, dto);
 
@@ -72,7 +75,7 @@ public class ClientApiCrudEndpoint {
         return new ResponseEntity<>(updatedClient, OK);
     }
 
-    @DeleteMapping(value = CLIENT_API_PATH_DELETE_RESOURCE, produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = CLIENT_API_PATH_DELETE_RESOURCE)
     public ResponseEntity<Client> deleteClient(@PathVariable("id") String id) {
         log.debug("Deleting client with id {}", id);
 
