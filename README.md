@@ -117,3 +117,4 @@ From this perspective, the following TODOs (in this order) could be done next:
      
 * Miscellaneous
     * Extend unit tests (e.g. add unit test for searchClientsGeneric)
+    * Add .circle_ci.yml for automated build/tests
