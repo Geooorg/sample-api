@@ -4,6 +4,8 @@ project:
 
 server.port: 8080
 
+api.authentication.enabled: true
+
 spring:
   datasource:
     url: jdbc:h2:mem:ccp;DB_CLOSE_ON_EXIT=FALSE

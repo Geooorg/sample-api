@@ -3,6 +3,7 @@ package de.gs.api.auth;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 import static de.gs.api.auth.LoginEndpoint.LOGIN_PATH;
 
 @Component
+@ConditionalOnProperty("api.authentication.enabled")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationRequestInterceptor extends OncePerRequestFilter {
