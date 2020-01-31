@@ -1,6 +1,10 @@
 # sample-api
 Sample REST API for client management.
 
+#### Testing status / Code coverage:
+
+Class: 90%, Methods: 87%, Lines: 83% 
+
 # How to run
 
 Build the project as outlined in build.sh:
@@ -32,6 +36,7 @@ See also ClientApiCrudEndpointTest for examples.
 ### Listing all (enabeld) clients
 
 GET /v1/client
+
 .. Pagination is supported. Provide page and pageSize parameters, e.g.
 
     curl -X GET http://localhost:8080/v1/client?page=0&pageSize=50
@@ -43,30 +48,33 @@ GET /v1/client/search/id/{id}
 
 ### Adding a client
 
-POST /v1/client
+    POST /v1/client
+
 .. with a JSON body containing a UpdateClientDto
 
 ### Updating a client
 
-PUT /v1/client
+    PUT /v1/client
+
 .. with a JSON body containing a UpdateClientDto
 
 ### Deleting a client
 
-DELETE /v1/client/{id}
+    DELETE /v1/client/{id}
 
 ### Searching for clients by multiple properties
 
 - email and id will return unique search results
 - all other properties are searched for using a "contains incasesensitive" search
 
-POST /v1/client/search/generic
-.. .. Pagination is supported. Provide page and pageSize parametere as described for listing clients
+    POST /v1/client/search/generic
+
+.. Pagination is supported. Provide page and pageSize parametere as described for listing clients
 
 
 # API Authentication
 
-An authentication using JWT is prepared but not tested, so it's DISABLED for the moment.
+An authentication using JWT is prepared but not deeply tested, so it's DISABLED for the moment.
 
 ## Concept of API Users and permissions
 
@@ -102,7 +110,7 @@ Note: Currently the user's roles are not checked.
 
 # Open TODOs
 
-Providing a working, high quality software with a mostly tested API was important than providing lots of features that were not tested enough.
+Providing a working, high quality software with tested API was important than providing lots of features that were not tested enough.
 From this perspective, the following TODOs (in this order) could be done next:
 
 * Authentication / Access control:
